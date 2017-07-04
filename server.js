@@ -7,7 +7,8 @@ app.set('view engine', 'pug')
 app.use(express.static(__dirname + '/static'))
 
 io.on('connection', (socket) => {
-	console.log(`User Id connected: ${socket.id}`)
+	//console.log(`User Id connected: ${socket.id}`)
+	console.log(io.sockets.connected)
 
 	socket.on('add nick', (nickname) => {
 		socket.nickname = nickname
@@ -15,14 +16,21 @@ io.on('connection', (socket) => {
 		io.emit('new user', socket.nickname);
 	})
 
-	socket.on('new message', (message) => {
+	socket.on('new message', (message) => {		
+		var data = {'user': socket.nickname, 'msg': message, 'id': socket.id}		
+		
 		// todos los sockets incluyendome
-		var data = {'user': socket.nickname, 'msg': message}
-
-		io.emit('resend', data)
+		//io.emit('resend', data)
 
 		// todos los socket sin incluirme
-		//socket.broadcast.emit()
+		// socket.broadcast.emit('resend', data)
+
+		//  solo a mi
+		socket.emit('resend', data)
+	})
+
+	socket.on('private message', (id, msg) => {
+		socket.broadcast.to(id).emit('message to', msg);
 	})
 })
 

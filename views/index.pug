@@ -9,13 +9,19 @@ body
 		label(for="nickname") Registra tu nickname: 
 		input#nickname(autofocus)
 
-	div#chat(style="display:none")
+	div#chat.col(style="display:none")
 		h2 Bienvenido al chat
 
 		label(for="message") Tu mensaje aqui: 
 		input#message
 
 		ul#messages
+			
+	div#private.col(style="display:none")
+		h2 Mensajes privados
+
+		ul#private_messages
+
 
 
 

@@ -1,7 +1,16 @@
+.col {
+	border: 1px solid #DAE2E1;
+	display: inline-block;
+	height: 300px;
+	margin: 0 auto;
+	padding: 10px;
+	overflow-y: scroll;
+	vertical-align: top;
+	width: 400px;
+}
 .msg {
 	color: green;
 }
-
 .new_user {
 	color: orange;
 }
